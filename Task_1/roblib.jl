@@ -46,14 +46,14 @@ end
 
 """
     go_to_corner!(x::Robot, mvs::AbstractArray)
--- Перемещает Робота в Юго-Западный угол, обходя препядмствия, и заптсывает путь в массив
+-- Перемещает Робота в любой угол, обходя препядствия, и записывает путь в массив
 """
-function go_to_corner!(x::Robot, mvs::AbstractArray)
-    while(!isborder(x, West) || !isborder(x, Sud))
-        if(!isborder(x, West))
-            moves!(x, West, mvs)
+function go_to_corner!(x::Robot, mvs::AbstractArray, side1::HorizonSide, side2::HorizonSide)
+    while (!isborder(x, side1) || !isborder(x, side2))
+        if !isborder(x, side1)
+            moves!(x, side1, mvs)
         else
-            moves!(x, Sud, mvs)
+            moves!(x, side2, mvs)
 
         end
     end
