@@ -6,6 +6,9 @@
 krest!(rob::Robot) - рисует крест из маркеров относительно начального положения
 
 =#
+
+include("roblib.jl")
+
 function draw!(x::Robot, side::HorizonSide)
     while !isborder(x, side)
         move!(x, side)
@@ -17,9 +20,7 @@ function come_back!(x::Robot, side::HorizonSide)
         move!(x, side)
     end
 end
-function inverse(side::HorizonSide)
-    return HorizonSide((Int(side) + 2) % 4)
-end
+
 function krest!(rob::Robot)
     for s in [Nord,West, Sud, Ost]
         draw!(rob, s)
