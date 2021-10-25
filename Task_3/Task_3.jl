@@ -1,3 +1,15 @@
+#=
+
+ДАНО: Робот - в произвольной клетке ограниченного прямоугольного поля
+РЕЗУЛЬТАТ: Робот - в исходном положении, и все клетки поля промакированы
+
+area!(x::Robot) - закрашивает все клетки поля и возвращает робота в начальное положение
+
+Функции go_to_corner!(x::Robot, mvs::AbstractArray), moves!(x::Robot, side::HorizonSide), return_back!(x::Robot, mvs::AbstractArray) - подключаются из библиотечного файла roblib.jl
+
+=#
+include("roblib.jl")
+
 function draw!(x, side)
     putmarker!(x)
     while !isborder(x, side)
@@ -9,30 +21,11 @@ function draw!(x, side)
     end
 end
 
-function num_move!(x, side)
-    coun = 0
-    while isborder(x, side) == 0
-        move!(x, side)
-        coun +=1
-    end
-    return coun
-end
-
-function max_move!(x, side)
-    while isborder(x, side) == 0
-        move!(x, side)
-    end
-end
-
-function move_coun!(x, side, num)
-    for i in 1:num
-        move!(x, side)
-    end
-end
 
 function area!(rob)
-    num_x = num_move!(rob, West)
-    num_y = num_move!(rob, Sud)
+    arr = []
+
+    go_to_corner!(rob, arr)
 
     while (isborder(rob, Nord) && isborder(rob, Ost)) == false
         if !isborder(rob, Ost)
@@ -42,11 +35,10 @@ function area!(rob)
         end
     end
 
-    max_move!(rob, West)
-    max_move!(rob, Sud)
+    moves!(rob, West)
+    moves!(rob, Sud)
 
-    move_coun!(rob, Nord, num_y)
-    move_coun!(rob, Ost, num_x)
+    return_back!(rob, arr)
 end
 
 area!(r)
