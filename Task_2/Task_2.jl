@@ -20,7 +20,7 @@ end
 
 function perimeter!(rob::Robot)
     arr = []
-    go_to_corner!(rob, arr)
+    go_to_corner!(rob, arr, West, Sud)
 
     for s in [Nord,Ost, Sud, West]
         draw!(rob, s)

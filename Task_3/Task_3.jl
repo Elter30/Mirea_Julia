@@ -25,7 +25,7 @@ end
 function area!(rob)
     arr = []
 
-    go_to_corner!(rob, arr)
+    go_to_corner!(rob, arr, West, Sud)
 
     while (isborder(rob, Nord) && isborder(rob, Ost)) == false
         if !isborder(rob, Ost)
