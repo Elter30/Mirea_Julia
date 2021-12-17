@@ -61,6 +61,24 @@ end
 
 
 """
+    go_to_corner!(x::Robot, angle::NTuple{2,HorizonSide})
+--Перемещает Робота в любой угол и
+ возвращает массив с количеством сделанных шагов в каждую из сторон
+"""
+function go_to_corner!(x::Robot, angle::NTuple{2,HorizonSide})
+    num_steps = []
+    while (!isborder(x, angle[1]) || !isborder(x, angle[2]))
+        if !isborder(x, angle[1])
+            push!(num_steps, moves!(x, angle[1]))
+        else
+            push!(num_steps, moves!(x, angle[2]))
+        end
+    end
+    return num_steps
+end
+
+
+"""
     return_back!(x::Robot, mvs::AbstractArray)
 -- Возвращает Робота из промежуточного положения(путь к нему из начального положения должен быть записан в массив) в начальное
 """
