@@ -1,3 +1,7 @@
+#=
+Посчитать число всех горизонтальных прямолинейных перегородок (вертикальных - нет)
+=#
+
 include("roblib.jl")
 
 function gorizontal_line_count(rob::Robot)
