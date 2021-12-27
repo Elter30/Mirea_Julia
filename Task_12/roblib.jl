@@ -6,10 +6,6 @@ function inverse(side::HorizonSide)
     return HorizonSide(mod(Int(side) + 2, 4))
 end
 
-function next(side::HorizonSide)
-    return HorizonSide(mod(Int(side) + 1, 4))
-end  
-
 
 """
     moves!(x::Robot, side::HorizonSide)
@@ -88,38 +84,4 @@ function return_back!(x::Robot, mvs::AbstractArray)
         last_move = pop!(mvs)
         move!(x, inverse(last_move))
     end
-end
-
-
-"""
-    move_if_possible(r::Robot, main_side::HorizonSide)
--- Двигает робота в заданном направлении, обходя препятствия, и возвращает true или возвращает false если
-робот упирается во внешнюю границу
-"""
-function move_if_possible(r, main_side::HorizonSide)
-    orthogonal_side = next(main_side)
-    reverse_side = inverse(orthogonal_side)
-    num_steps = 0
-
-    if isborder(r, main_side) == false
-        move!(r, main_side)
-        return true
-    else
-        while (isborder(r, orthogonal_side) == false  && isborder(r, main_side) == true)
-            move!(r, orthogonal_side)
-            num_steps += 1
-        end
-        if isborder(r, main_side) && isborder(r, orthogonal_side) == true
-            num_move!(r, reverse_side, num_steps)
-            return false
-        else
-            move!(r, main_side)
-            while isborder(r, reverse_side) == true
-                move!(r, main_side)
-            end
-            num_move!(r, reverse_side, num_steps)
-            return true
-        end
-    end
-
 end

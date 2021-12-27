@@ -6,9 +6,7 @@ function inverse(side::HorizonSide)
     return HorizonSide(mod(Int(side) + 2, 4))
 end
 
-function next(side::HorizonSide)
-    return HorizonSide(mod(Int(side) + 1, 4))
-end  
+
 
 
 """

@@ -52,6 +52,7 @@ function draw!(x::Robot, side::HorizonSide, sum::Number)
 end
 
 
+
 function chess!(rob::Robot)
     arr = []
     sum = go_to_corner!(rob, arr)
